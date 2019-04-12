@@ -1,12 +1,12 @@
 require_relative "00_tree_node.rb"
 class KnightPathFinder
 
-    attr_reader :chess_board
-
+    attr_reader :chess_board, :root_node
+    
     def initialize(start_pos)
         @start_pos = start_pos
         @chess_board = Array.new(8) {Array.new(8) } 
-        self.root_node = Node.new(start_pos)  
+        @root_node = Node.new(start_pos)  
         @considered_positions = [pos]
     end
 
@@ -43,8 +43,22 @@ class KnightPathFinder
         
         the_moves = valid.select { |move| !@considered_positions.include?(move) }
 
-        return @considered_positions.concat(the_moves)
+        @considered_positions.concat(the_moves)
+
+        return the_moves
     end
 
     def build_move_tree
+        queue = [self.root_node]
+
+        until queue.empty?
+            current_node = queue.shift
+            moves = new_move_positions(current_node.value)
+            moves.each do |move|
+                new_node = Node.new(move)
+                new_node.parent = current_node
+                queue << new_node
+            end
+        end
+    end
 end
