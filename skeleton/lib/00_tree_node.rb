@@ -1,5 +1,5 @@
 require "byebug"
-class PolyTreeNode
+class Node
     attr_reader :value, :parent, :children
 
     def initialize(value)
@@ -28,7 +28,7 @@ class PolyTreeNode
 
     def remove_child(child)
         raise "ERROR" unless self.children.include?(child)
-        
+
         child.parent = nil
     end
 
