@@ -21,5 +21,17 @@ class PolyTreeNode
         end
     end
 
+    def add_child(child)
+        child.parent = self
+    end
+
+    def remove_child(child)
+        child.parent = nil
+
+        if child.parent == nil
+            raise "ERROR!"
+        end
+    end
+
     attr_reader :value, :parent, :children
 end
