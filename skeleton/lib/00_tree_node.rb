@@ -27,15 +27,12 @@ class PolyTreeNode
     end
 
     def remove_child(child)
+        raise "ERROR" unless self.children.include?(child)
+        
         child.parent = nil
-
-        if child.parent == nil
-            raise "ERROR@^%!@^&!@#!"
-        end
     end
 
     def dfs(target)
-        return nil if self.nil?
         return self if self.value == target
 
         self.children.each do |child|
