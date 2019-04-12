@@ -1,3 +1,4 @@
+require "byebug"
 class PolyTreeNode
     attr_reader :value, :parent, :children
 
@@ -29,8 +30,36 @@ class PolyTreeNode
         child.parent = nil
 
         if child.parent == nil
-            raise "ERROR!"
+            raise "ERROR@^%!@^&!@#!"
         end
+    end
+
+    def dfs(target)
+        return nil if self.nil?
+        return self if self.value == target
+
+        self.children.each do |child|
+            # debugger
+            search_result = child.dfs(target)
+            # debugger
+            return search_result unless search_result.nil?
+        end
+
+        nil
+    end
+
+    def bfs(target)
+        queue = [self]
+
+        until queue.empty?
+            el = queue.shift
+            if el.value == target 
+                return el 
+            else
+                el.children.each { |child| queue << child }
+            end
+        end
+
     end
 
     attr_reader :value, :parent, :children
