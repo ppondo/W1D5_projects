@@ -61,4 +61,21 @@ class KnightPathFinder
             end
         end
     end
+
+    def find_path(end_pos)
+        root = self.root_node
+
+        root.dfs(end_pos)
+    end
+
+    def trace_path_back(node)
+        traced_nodes = []
+        
+        until node.parent == nil
+            traced_nodes << node.value 
+            parent = node.parent
+            trace_path_back(parent)
+        end
+        
+    end 
 end
